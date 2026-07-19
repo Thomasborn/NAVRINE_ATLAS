@@ -1,10 +1,14 @@
 'use client';
-import { useState } from 'react';
-import { sampleAtlasEntries } from '@/data/seed';
+import { Suspense, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { buildSearchIndex, searchDocs } from '@/lib/search-index';
 import Link from 'next/link';
 
-export default function SearchPage() {
-  const [q, setQ] = useState("");
+const INDEX = buildSearchIndex();
+
+function SearchContent() {
+  const searchParams = useSearchParams();
+  const [q, setQ] = useState(searchParams.get('q') ?? '');
   const [active, setActive] = useState("Category");
 
   const filters = ["Category","Region","Industry","Mood","Color","Era","Platform","Use Case"];
@@ -13,8 +17,9 @@ export default function SearchPage() {
     "Luxury SaaS","Indonesian pop culture","AI album cover","Street campaign",
     "Cool blue minimal","Notes app chic","Chrome future"
   ];
-  
-  const entries = sampleAtlasEntries;
+
+  const norm = q.trim();
+  const entries = norm ? searchDocs(INDEX, norm, INDEX.length) : INDEX;
 
   return (
     <section id="search">
@@ -62,38 +67,50 @@ export default function SearchPage() {
         </div>
 
         <div style={{ marginTop: '4rem' }}>
+          {entries.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+              <p className="lede">No atlas entries match “{q}”.</p>
+              <button className="pill" style={{ marginTop: '1rem' }} onClick={() => setQ("")}>Clear search</button>
+            </div>
+          ) : (
           <div className="bento">
-            {entries.map(s => {
-              const isLightCard = ["vintage-pop-campaign", "cool-blue-minimal-saas", "chrome-future-poster"].includes(s.slug);
-              const lightClass = isLightCard ? "card-light" : "";
+            {entries.map(doc => (
+              <article key={doc.key} className="signal-card span-2">
+                <div className="card-top">
+                  <span className="pill accent">{doc.meta}</span>
+                </div>
 
-              return (
-                <article key={s.id} className={`signal-card span-2 ${lightClass}`}>
-                  <div className="card-top">
-                    <span className="pill accent">{s.category}</span>
-                  </div>
+                <div>
+                  <div className="card-title">{doc.title}</div>
+                  <p className="card-desc">{doc.detail.length > 120 ? doc.detail.substring(0, 120) + '…' : doc.detail}</p>
+                </div>
 
-                  <div>
-                    <div className="card-title">{s.title}</div>
-                    <p className="card-desc">{s.subtitle || s.description.substring(0, 100) + '...'}</p>
-                  </div>
-
+                {doc.palette && (
                   <div className="swatches">
-                    {s.colorPalette.map((c,i) => <span key={i} className="swatch" style={{background:c}}></span>)}
+                    {doc.palette.map((c, i) => <span key={i} className="swatch" style={{ background: c }}></span>)}
                   </div>
+                )}
 
-                  <div className="card-foot">
-                    <span className="meta">{s.industries?.[0] || 'Various'}</span>
-                    <Link href={`/${s.category.toLowerCase().replace(' ', '-')}/${s.slug}`} className="open-link">
-                      Open Atlas Entry <span className="arr">→</span>
-                    </Link>
-                  </div>
-                </article>
-              );
-            })}
+                <div className="card-foot">
+                  <span className="meta">{doc.href.split('/')[1].replace(/-/g, ' ')}</span>
+                  <Link href={doc.href} className="open-link">
+                    Open Atlas Entry <span className="arr">→</span>
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
+          )}
         </div>
       </div>
     </section>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={null}>
+      <SearchContent />
+    </Suspense>
   );
 }

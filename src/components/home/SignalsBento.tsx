@@ -1,8 +1,9 @@
 'use client';
 import { useRef, type ReactNode, type PointerEvent } from 'react';
+import Link from 'next/link';
 import { ATLAS_DATA } from '@/data/data';
 
-function TiltCard({ children, className }: { children: ReactNode; className: string }) {
+function TiltCard({ children, className, href }: { children: ReactNode; className: string; href?: string }) {
   const ref = useRef<HTMLElement>(null);
 
   const onMove = (e: PointerEvent<HTMLElement>) => {
@@ -17,6 +18,16 @@ function TiltCard({ children, className }: { children: ReactNode; className: str
   const onLeave = () => {
     if (ref.current) ref.current.style.transform = '';
   };
+
+  if (href) {
+    return (
+      <Link href={href} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+        <article ref={ref} className={className} onPointerMove={onMove} onPointerLeave={onLeave} style={{ height: '100%' }}>
+          {children}
+        </article>
+      </Link>
+    );
+  }
 
   return (
     <article ref={ref} className={className} onPointerMove={onMove} onPointerLeave={onLeave}>
@@ -44,7 +55,7 @@ export default function SignalsBento() {
       </header>
       <div className="bento">
         {ATLAS_DATA.featuredSignals.map((s) => (
-          <TiltCard key={s.id} className={`bento-card ${SPAN_CLASS[s.span] ?? 'bento-third'}`}>
+          <TiltCard key={s.id} className={`bento-card ${SPAN_CLASS[s.span] ?? 'bento-third'}`} href={`/aesthetics/${s.id}`}>
             <div className="bento-top">
               <span className="bento-cat">{s.category}</span>
               {'tag' in s && s.tag ? <span className="bento-tag">{s.tag}</span> : null}

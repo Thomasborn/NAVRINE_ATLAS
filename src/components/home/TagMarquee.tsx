@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const TAGS = [
   'Neo-Y2K', 'Vintage Pop', 'Cyber Street', 'Urban Night', 'Chrome Future',
   'Asian Pop', 'Indie Poster', 'Premium Dark', 'Street Flash', 'Viral Signal',
@@ -7,13 +9,13 @@ const TAGS = [
 export default function TagMarquee() {
   const row = [...TAGS, ...TAGS];
   return (
-    <div className="tag-marquee" aria-hidden="true">
+    <div className="tag-marquee">
       <div className="tag-marquee-track">
         {row.map((t, i) => (
-          <span key={i} className="tag-marquee-item">
+          <Link key={i} href={`/search?q=${encodeURIComponent(t)}`} className="tag-marquee-item" style={{ textDecoration: 'none' }}>
             {t}
             <span className="tag-marquee-dot" />
-          </span>
+          </Link>
         ))}
       </div>
     </div>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ATLAS_DATA } from '@/data/data';
 
 export default function TrendsTicker() {
@@ -10,20 +11,26 @@ export default function TrendsTicker() {
       </header>
       <ol className="trend-list">
         {ATLAS_DATA.viralSignals.map((v) => (
-          <li key={v.num} className="trend-row">
-            <span className="trend-num">{v.num}</span>
-            <div className="trend-body">
-              <h3>{v.title}</h3>
-              <p>{v.why}</p>
-            </div>
-            <div className="trend-side">
-              <span className="trend-platform">{v.platform}</span>
-              <span className="trend-meter" aria-label={`Strength ${v.strength} of 5`}>
-                {Array.from({ length: 5 }, (_, i) => (
-                  <span key={i} className={i < v.strength ? 'on' : ''} />
-                ))}
-              </span>
-            </div>
+          <li key={v.num}>
+            <Link
+              href={`/search?q=${encodeURIComponent(v.title)}`}
+              className="trend-row"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <span className="trend-num">{v.num}</span>
+              <div className="trend-body">
+                <h3>{v.title}</h3>
+                <p>{v.why}</p>
+              </div>
+              <div className="trend-side">
+                <span className="trend-platform">{v.platform}</span>
+                <span className="trend-meter" aria-label={`Strength ${v.strength} of 5`}>
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <span key={i} className={i < v.strength ? 'on' : ''} />
+                  ))}
+                </span>
+              </div>
+            </Link>
           </li>
         ))}
       </ol>

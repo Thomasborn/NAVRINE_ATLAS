@@ -1,0 +1,1 @@
+﻿{"routeId":"augiA20Il","localeId":"default","breakpoints":[{"hash":"72rtr7"},{"hash":"wocnv4","mediaQuery":"(min-width: 1200px)"},{"hash":"1iaia7p","mediaQuery":"(min-width: 810px) and (max-width: 1199.98px)"},{"hash":"11enbum","mediaQuery":"(max-width: 809.98px)"}]}
