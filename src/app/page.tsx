@@ -1,3 +1,4 @@
+// Framer Clone UI - Home Page Layout
 import './framer.css';
 
 export default function Home() {
