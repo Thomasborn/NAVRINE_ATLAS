@@ -2,332 +2,1002 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import './framer.css';
+import { ATLAS_DATA as D } from '@/data/data';
 
-export default function Home() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [copiedPrompt, setCopiedPrompt] = useState<number | null>(null);
+function SignalStrength({ level }: { level: number }) {
+  return (
+    <span className="signal-strength" data-level={level}>
+      <span className="signal-bars">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      Signal {['—', 'Low', 'Med', 'High', 'Critical'][level]}
+    </span>
+  );
+}
 
-  const prompts = [
+function Hero() {
+  const tags = [
+    'Neo-Y2K',
+    'Vintage Pop',
+    'Cyber Street',
+    'Urban Night',
+    'Chrome Future',
+    'Asian Pop',
+    'Indie Poster',
+    'Premium Dark',
+    'Street Flash',
+    'Viral Signal',
+    'AI Cover Art',
+    'Soft 3D',
+    'Notes App Chic',
+    'Quiet Luxury',
+    'Digital Brutalism',
+  ];
+
+  const floatCards = [
     {
-      id: 1,
-      title: 'Neo-Y2K Hero Render',
-      tool: 'Midjourney v7',
-      text: 'Hero product mock for a music creator app, neo-Y2K aesthetic, translucent chrome buttons, soft gradient orb backgrounds, magenta and electric blue, soft 3D lighting, photoreal, --ar 16:9 --style raw --v 7',
-      tags: ['3D', 'Hero', 'Brand'],
+      cls: 'fc1',
+      title: 'Neo-Y2K',
+      cat: 'Aesthetic',
+      swatches: ['#4D8DFF', '#FF4FD8', '#E8E8FF', '#1A0A2B'],
     },
     {
-      id: 2,
-      title: 'Urban Night Campaign',
-      tool: 'Flux Pro 1.1',
-      text: 'Street campaign photograph, night neon Jakarta side street, subject in oversized varsity jacket, sodium amber spill from shop signage, mild motion blur, 35mm, Kodak Portra 800 grain, --ar 4:5',
-      tags: ['Photo', 'Campaign', 'Night'],
+      cls: 'fc2',
+      title: 'Urban Night',
+      cat: 'Photography',
+      swatches: ['#FFB84D', '#FF4FD8', '#050505', '#1A0E0A'],
     },
     {
-      id: 3,
-      title: 'Premium Dark Dashboard',
-      tool: 'v0 / Lovable',
-      text: 'Generate a premium dark analytics dashboard for an AI infra product. Background #070707, hairline borders, electric blue accent #4D8DFF, large editorial serif headline, sparse spacing.',
-      tags: ['UI', 'SaaS', 'Code'],
+      cls: 'fc3',
+      title: 'Chrome Future',
+      cat: 'Poster',
+      swatches: ['#D8D8D8', '#777', '#F0F0F0', '#555'],
     },
     {
-      id: 4,
-      title: 'Chrome Future Poster',
-      tool: 'Midjourney v7',
-      text: 'Festival poster, liquid chrome 3D type spelling "ATLAS", floating in soft volumetric light, magenta and cobalt rim, dust particles, Cinema 4D render, octane, photoreal, --ar 2:3',
-      tags: ['Poster', '3D', 'Music'],
+      cls: 'fc4',
+      title: 'Asian Pop',
+      cat: 'Music Visual',
+      swatches: ['#FF4FD8', '#FFB84D', '#2B0A1F'],
+    },
+    {
+      cls: 'fc5',
+      title: 'Premium Dark',
+      cat: 'Product UI',
+      swatches: ['#070707', '#B8FF4D', '#A8A8A0', '#4D8DFF'],
     },
   ];
 
-  const copyToClipboard = (text: string, id: number) => {
-    navigator.clipboard.writeText(text);
-    setCopiedPrompt(id);
-    setTimeout(() => setCopiedPrompt(null), 2000);
-  };
-
   return (
-    <div className="framer-mode" style={{ minHeight: '100vh', background: '#080808', color: '#fff' }}>
-      
-      {/* Floating Header */}
-      <nav className="framer-nav">
-        <div className="framer-nav-logo">
-          <Link href="/" style={{ color: '#fff', textDecoration: 'none' }}>Navrine Atlas</Link>
-        </div>
-        <div className="framer-nav-links">
-          <a href="#discover">Discover</a>
-          <a href="#style">Style</a>
-          <a href="#create">Create</a>
-          <a href="#journal">Jurnal</a>
-        </div>
-        <a href="#submit" className="framer-nav-btn" style={{ textDecoration: 'none', color: 'inherit' }}>
-          Let's Build &rarr;
-        </a>
-      </nav>
+    <section className="hero" id="top">
+      <div className="hero-grid-bg"></div>
+      <div className="hero-glow"></div>
+      <div className="hero-glow two"></div>
 
-      {/* Main Container */}
-      <div className="framer-container">
-        {/* Hero Section */}
-        <section className="framer-hero" id="discover">
-          <div className="framer-hero-grid">
-            <div>
-              <div className="framer-badge">ISSUE 014 · MAY 2026</div>
-              <h1 className="framer-hero-title">
-                The visual <i>culture</i> map for trends, <i>aesthetics &</i> taste.
-              </h1>
-              <p className="framer-hero-desc">
-                Navrine Atlas decodes the signals behind modern visual culture — from Neo-Y2K interfaces and urban night photography to poster trends, premium SaaS direction, and AI prompt grammar.
-              </p>
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <a href="#signals" className="framer-nav-btn" style={{ background: '#fff', color: '#000', padding: '12px 28px', textDecoration: 'none', fontWeight: 600 }}>
-                  Start Exploring
-                </a>
-                <a href="#search" className="framer-nav-btn" style={{ background: 'transparent', padding: '12px 28px', textDecoration: 'none' }}>
-                  View Index
-                </a>
-              </div>
+      <div className="shell">
+        <div className="hero-inner">
+          <div>
+            <div className="hero-meta">
+              <span className="pill">
+                <span className="dot" style={{ color: 'var(--green)' }}></span>Issue 014 · May 2026
+              </span>
+              <span className="pill">Visual Culture Catalog</span>
+              <span className="pill">ID · EN</span>
             </div>
 
-            {/* Interactive Visual Cards */}
-            <div className="framer-hero-visual">
-              <div className="framer-card" style={{ top: '0', left: '0', transform: 'rotate(-3deg)', zIndex: 1 }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '8px' }}>Neo-Y2K Interface</div>
-                <div style={{ fontSize: '0.625rem', fontFamily: 'var(--font-mono)', color: '#a3e635' }}>RISING +212%</div>
-                <div style={{ fontSize: '0.8rem', color: '#a1a1aa', marginTop: '8px' }}>Translucent chrome, rounded LCD glyphs, gradient orbs &amp; bubble nav.</div>
-              </div>
-              <div className="framer-card" style={{ top: '60px', right: '0', transform: 'rotate(5deg)', zIndex: 2 }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '8px' }}>Vintage Pop</div>
-                <div style={{ fontSize: '0.625rem', fontFamily: 'var(--font-mono)', color: '#60a5fa' }}>TRENDING</div>
-                <div style={{ fontSize: '0.8rem', color: '#a1a1aa', marginTop: '8px' }}>Bleached film tones, halftone print &amp; hand-lettered type.</div>
-              </div>
-              <div className="framer-card" style={{ bottom: '20px', left: '30px', transform: 'rotate(-2deg)', zIndex: 3 }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '8px' }}>Urban Night</div>
-                <div style={{ fontSize: '0.625rem', fontFamily: 'var(--font-mono)', color: '#f43f5e' }}>CRITICAL SIGNAL</div>
-                <div style={{ fontSize: '0.8rem', color: '#a1a1aa', marginTop: '8px' }}>Sodium-vapor amber against shop neon, 35mm motion blur.</div>
-              </div>
+            <h1 className="display hero-headline">
+              The visual culture
+              <br />
+              map for <em>trends,</em>
+              <br />
+              aesthetics &amp; <em>taste.</em>
+            </h1>
+
+            <p className="hero-sub">
+              Navrine Atlas decodes the signals behind modern visual culture — from Neo-Y2K interfaces and urban night photography to TikTok poster trends, premium SaaS direction, and AI prompt grammar. Curated for founders, designers, creators, and cultural builders.
+            </p>
+
+            <div className="hero-ctas">
+              <a href="#search" className="btn btn-primary">
+                Explore the Atlas<span className="btn-icon"></span>
+              </a>
+              <Link href="/submit" className="btn btn-ghost">
+                Build with Navrine Studio<span className="btn-icon"></span>
+              </Link>
+            </div>
+
+            <div className="hero-tags">
+              {tags.map((t) => (
+                <span key={t} className="pill">
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
-        </section>
-      </div>
 
-      {/* Marquee Ticker */}
-      <div className="framer-marquee-container">
-        <div className="framer-marquee-track">
-          <div className="framer-marquee-item"><span>&bull;</span> Neo-Y2K +212% week-over-week</div>
-          <div className="framer-marquee-item"><span>&bull;</span> Urban Night Photography rising in SEA</div>
-          <div className="framer-marquee-item"><span>&bull;</span> Notes App Chic crosses into B2B</div>
-          <div className="framer-marquee-item"><span>&bull;</span> Mixed-script poster trend stabilized</div>
-          <div className="framer-marquee-item"><span>&bull;</span> Neo-Y2K +212% week-over-week</div>
-          <div className="framer-marquee-item"><span>&bull;</span> Urban Night Photography rising in SEA</div>
-          <div className="framer-marquee-item"><span>&bull;</span> Notes App Chic crosses into B2B</div>
-          <div className="framer-marquee-item"><span>&bull;</span> Mixed-script poster trend stabilized</div>
-        </div>
-      </div>
-
-      <div className="framer-container">
-        {/* Bento Index / Search Section */}
-        <section className="framer-section" id="search">
-          <div className="framer-bento-grid">
-            <div className="framer-box" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ fontSize: '3.5rem', fontWeight: 800, lineHeight: 1 }}>24.8k</div>
-              <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#a3e635', marginTop: '8px', letterSpacing: '0.05em' }}>
-                CURATED SIGNALS
-              </div>
-              <div style={{ marginTop: '24px', fontSize: '0.9rem', color: '#a1a1aa' }}>
-                1,284 Atlas Entries · 86 Aesthetics · 312 Photography Studies · 920+ Prompts
-              </div>
-            </div>
-
-            <div className="framer-box">
-              <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#a1a1aa', marginBottom: '16px', borderBottom: '1px solid var(--framer-border)', paddingBottom: '16px' }}>
-                LIVE INDEX · SEARCH THE SIGNALS
-              </div>
-              <div className="framer-box-purple">
-                <div className="framer-search">
-                  <span style={{ color: '#000', fontSize: '1.1rem' }}>🔍</span>
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Try 'acid graphics', 'neo-brutalism', or 'Y2K'..."
-                  />
-                </div>
-                <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '24px', flexWrap: 'wrap' }}>
-                  {['TYPOGRAPHY', 'MOTION', '3D ASSETS', 'POSTERS', 'BRANDING'].map((cat) => (
-                    <span
-                      key={cat}
-                      className="framer-badge"
-                      style={{ cursor: 'pointer', margin: 0, background: searchQuery === cat ? '#fff' : 'transparent', color: searchQuery === cat ? '#000' : '#c7d2fe', borderColor: 'rgba(199, 210, 254, 0.3)' }}
-                      onClick={() => setSearchQuery(cat)}
-                    >
-                      {cat}
-                    </span>
+          <div className="hero-panel" aria-hidden="true">
+            {floatCards.map((c) => (
+              <div key={c.cls} className={`float-card ${c.cls}`}>
+                <div className="swatches">
+                  {c.swatches.map((s, i) => (
+                    <span key={i} className="swatch" style={{ background: s }}></span>
                   ))}
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* High Signal Directions */}
-        <section className="framer-section" id="signals">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px' }}>
-            <div>
-              <div className="framer-badge">CURATED TRENDS</div>
-              <h2 style={{ fontSize: '2.5rem', fontWeight: 700, margin: 0 }}>High-signal directions right now</h2>
-            </div>
-            <Link href="/aesthetics" style={{ color: '#a3e635', textDecoration: 'none', fontSize: '0.875rem', fontFamily: 'var(--font-mono)' }}>
-              ALL AESTHETICS &rarr;
-            </Link>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
-            <div className="framer-box" style={{ padding: '28px' }}>
-              <div className="framer-badge" style={{ borderColor: '#a3e635', color: '#a3e635' }}>CRITICAL SIGNAL</div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '12px', marginBottom: '12px' }}>Neo-Y2K Interface</h3>
-              <p style={{ color: '#a1a1aa', fontSize: '0.9rem', lineHeight: 1.5 }}>
-                Translucent chrome, rounded LCD glyphs, gradient orbs and bubble navigation. Y2K resurrected for AI products.
-              </p>
-              <Link href="/aesthetics/neo-y2k-interface" style={{ color: '#fff', fontSize: '0.8rem', fontFamily: 'var(--font-mono)', display: 'inline-block', marginTop: '16px' }}>
-                EXPLORE SIGNAL &rarr;
-              </Link>
-            </div>
-
-            <div className="framer-box" style={{ padding: '28px' }}>
-              <div className="framer-badge" style={{ borderColor: '#60a5fa', color: '#60a5fa' }}>TRENDING UP</div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '12px', marginBottom: '12px' }}>Vintage Pop Campaign</h3>
-              <p style={{ color: '#a1a1aa', fontSize: '0.9rem', lineHeight: 1.5 }}>
-                Bleached film tones, halftone print, hand-lettered Italian gelateria type. Slow-burn, durable branding style.
-              </p>
-              <Link href="/aesthetics/vintage-pop-campaign" style={{ color: '#fff', fontSize: '0.8rem', fontFamily: 'var(--font-mono)', display: 'inline-block', marginTop: '16px' }}>
-                EXPLORE SIGNAL &rarr;
-              </Link>
-            </div>
-
-            <div className="framer-box" style={{ padding: '28px' }}>
-              <div className="framer-badge" style={{ borderColor: '#f43f5e', color: '#f43f5e' }}>CRITICAL SIGNAL</div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '12px', marginBottom: '12px' }}>Urban Night Photography</h3>
-              <p style={{ color: '#a1a1aa', fontSize: '0.9rem', lineHeight: 1.5 }}>
-                Sodium-vapor amber against shop neon, motion blur on a 35mm. The post-Tokyo, post-Jakarta visual lens.
-              </p>
-              <Link href="/aesthetics/urban-night-photography" style={{ color: '#fff', fontSize: '0.8rem', fontFamily: 'var(--font-mono)', display: 'inline-block', marginTop: '16px' }}>
-                EXPLORE SIGNAL &rarr;
-              </Link>
-            </div>
-
-            <div className="framer-box" style={{ padding: '28px' }}>
-              <div className="framer-badge" style={{ borderColor: '#c084fc', color: '#c084fc' }}>EMERGING</div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '12px', marginBottom: '12px' }}>Cyber Street Identity</h3>
-              <p style={{ color: '#a1a1aa', fontSize: '0.9rem', lineHeight: 1.5 }}>
-                Helvetica condensed, scanline overlay, single-stripe accents. High contrast identity for Web3 and music labels.
-              </p>
-              <Link href="/aesthetics/cyber-street-identity" style={{ color: '#fff', fontSize: '0.8rem', fontFamily: 'var(--font-mono)', display: 'inline-block', marginTop: '16px' }}>
-                EXPLORE SIGNAL &rarr;
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Prompt Pack Library */}
-        <section className="framer-section" id="create" style={{ borderTop: '1px solid var(--framer-border)' }}>
-          <div style={{ marginBottom: '40px' }}>
-            <div className="framer-badge">CREATIVE TOOLKIT</div>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 700, margin: 0 }}>A prompt pack for every direction</h2>
-            <p style={{ color: '#a1a1aa', marginTop: '8px' }}>
-              920+ tuned prompts for image generation, UI, posters, album covers, and brand systems.
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
-            {prompts.map((p) => (
-              <div key={p.id} className="framer-box" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                    <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#c7d2fe' }}>{p.tool}</span>
-                    <div style={{ display: 'flex', gap: '4px' }}>
-                      {p.tags.map((t) => (
-                        <span key={t} style={{ fontSize: '0.625rem', padding: '2px 6px', background: 'rgba(255,255,255,0.06)', borderRadius: '4px', color: '#a1a1aa' }}>{t}</span>
-                      ))}
-                    </div>
-                  </div>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '12px' }}>{p.title}</h4>
-                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#d4d4d8', background: 'rgba(0,0,0,0.5)', padding: '12px', borderRadius: '8px', lineHeight: 1.5, border: '1px solid rgba(255,255,255,0.05)' }}>
-                    "{p.text}"
-                  </p>
+                <div className="fc-title">{c.title}</div>
+                <div className="fc-meta">
+                  <span className="dot" style={{ color: 'var(--green)' }}></span>
+                  <span>{c.cat}</span>
                 </div>
-                <button
-                  onClick={() => copyToClipboard(p.text, p.id)}
-                  className="framer-nav-btn"
-                  style={{ marginTop: '16px', background: copiedPrompt === p.id ? '#a3e635' : 'rgba(255,255,255,0.1)', color: copiedPrompt === p.id ? '#000' : '#fff', cursor: 'pointer', border: 'none' }}
-                >
-                  {copiedPrompt === p.id ? '✓ Copied Prompt' : 'Copy Prompt'}
-                </button>
               </div>
             ))}
           </div>
-        </section>
+        </div>
 
-        {/* Editorial Journal Section */}
-        <section className="framer-section" id="journal" style={{ borderTop: '1px solid var(--framer-border)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px' }}>
-            <div>
-              <div className="framer-badge">EDITORIAL &amp; THEORY</div>
-              <h2 style={{ fontSize: '2.5rem', fontWeight: 700, margin: 0 }}>Field notes on visual culture</h2>
+        <div className="hero-foot">
+          <div className="hero-stat">
+            <div className="num">
+              <em>1,284</em>
             </div>
-            <Link href="/journal" style={{ color: '#a3e635', textDecoration: 'none', fontSize: '0.875rem', fontFamily: 'var(--font-mono)' }}>
-              READ ALL ESSAYS &rarr;
-            </Link>
+            <div className="lbl">Atlas Entries</div>
           </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
-            <div className="framer-box" style={{ padding: '32px' }}>
-              <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#a1a1aa', marginBottom: '12px' }}>
-                ESSAY · 12 MIN READ · MAY 2026
-              </div>
-              <h3 style={{ fontSize: '1.4rem', fontWeight: 700, lineHeight: 1.3, marginBottom: '16px' }}>
-                What is visual culture in branding, and why it now beats positioning
-              </h3>
-              <p style={{ color: '#a1a1aa', fontSize: '0.9rem', lineHeight: 1.6 }}>
-                Positioning is a sentence. Visual culture is the sentence's accent, posture, room, and weather. Why the new generation of brands competes on cultural fluency.
-              </p>
-              <Link href="/journal" style={{ color: '#fff', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', display: 'inline-block', marginTop: '20px' }}>
-                Read essay &rarr;
-              </Link>
-            </div>
-
-            <div className="framer-box" style={{ padding: '32px' }}>
-              <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#a1a1aa', marginBottom: '12px' }}>
-                PLAYBOOK · 8 MIN READ · MAY 2026
-              </div>
-              <h3 style={{ fontSize: '1.4rem', fontWeight: 700, lineHeight: 1.3, marginBottom: '16px' }}>
-                How to find aesthetic direction for a new startup
-              </h3>
-              <p style={{ color: '#a1a1aa', fontSize: '0.9rem', lineHeight: 1.6 }}>
-                A 5-step audit: anchor, adjacency, contrarian, internet-native, and one inherited reference. The framework we use inside Navrine Studio.
-              </p>
-              <Link href="/journal" style={{ color: '#fff', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', display: 'inline-block', marginTop: '20px' }}>
-                Read playbook &rarr;
-              </Link>
-            </div>
+          <div className="hero-stat">
+            <div className="num">86</div>
+            <div className="lbl">Aesthetics Tracked</div>
           </div>
-        </section>
-
-        {/* Submit / Contact Footer Banner */}
-        <section className="framer-section" id="submit" style={{ borderTop: '1px solid var(--framer-border)', paddingBottom: '120px' }}>
-          <div className="framer-box-purple" style={{ textAlign: 'center', padding: '60px 24px', borderRadius: '32px' }}>
-            <div className="framer-badge" style={{ background: '#fff', color: '#000', borderColor: '#fff' }}>NAVRINE STUDIO</div>
-            <h2 style={{ fontSize: '3rem', fontWeight: 800, marginTop: '16px', marginBottom: '16px' }}>
-              Build your visual identity with Navrine.
-            </h2>
-            <p style={{ color: '#c7d2fe', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 32px' }}>
-              We partner with ambitious founders, creators, and brands to engineer internet-native visual directions.
-            </p>
-            <a href="mailto:hello@navrine.space" className="framer-nav-btn" style={{ background: '#fff', color: '#000', padding: '16px 36px', fontSize: '1rem', textDecoration: 'none', fontWeight: 700 }}>
-              Start a Studio Project &rarr;
-            </a>
+          <div className="hero-stat">
+            <div className="num">312</div>
+            <div className="lbl">Photography Studies</div>
           </div>
-        </section>
+          <div className="hero-stat">
+            <div className="num">920+</div>
+            <div className="lbl">AI Prompts</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
+function Ticker() {
+  const items = [
+    'Neo-Y2K +212% week-over-week',
+    'Urban Night Photography rising in SEA',
+    'Notes App Chic crosses into B2B',
+    'Mixed-script poster trend stabilized',
+    'Chrome Future peaks in music visuals',
+    'Indie sleaze: receding signal',
+    'AI album cover packs: new format',
+    'Quiet luxury UI: durable',
+  ];
+  const loop = [...items, ...items];
+  return (
+    <div className="ticker" aria-hidden="true">
+      <div className="ticker-track">
+        {loop.map((t, i) => (
+          <span key={i}>{t}</span>
+        ))}
       </div>
     </div>
+  );
+}
+
+function SearchSection() {
+  const [q, setQ] = useState('');
+  const [active, setActive] = useState('Category');
+
+  const filters = [
+    'Category',
+    'Region',
+    'Industry',
+    'Mood',
+    'Color',
+    'Era',
+    'Platform',
+    'Use Case',
+  ];
+  const chips = [
+    'Music startup',
+    'TikTok poster trend',
+    'Urban photography',
+    'Y2K website',
+    'Luxury SaaS',
+    'Indonesian pop culture',
+    'AI album cover',
+    'Street campaign',
+    'Cool blue minimal',
+    'Notes app chic',
+    'Chrome future',
+  ];
+
+  return (
+    <section id="search">
+      <div className="shell">
+        <div className="section-head">
+          <div className="head-meta">
+            <span className="eyebrow">02 · Atlas Search</span>
+            <h2 className="section-title">
+              Search the <em>signals</em>.
+            </h2>
+            <p className="lede">
+              Cross-reference 1,284 atlas entries by aesthetic, region, industry, era, mood, platform, or use case. Built for designers, founders, and creative directors.
+            </p>
+          </div>
+          <div className="head-aside">
+            <span>
+              <span
+                className="dot"
+                style={{
+                  color: 'var(--green)',
+                  display: 'inline-block',
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: 'var(--green)',
+                  marginRight: 8,
+                }}
+              ></span>
+              Live index
+            </span>
+          </div>
+        </div>
+
+        <div className="search-card">
+          <div className="search-bar">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Search aesthetics, trends, prompts, photography styles, or brand concepts…"
+            />
+            <span className="kbd">⌘ K</span>
+          </div>
+
+          <div className="search-filters">
+            {filters.map((f) => (
+              <button
+                key={f}
+                className={`pill ${active === f ? 'active' : ''}`}
+                onClick={() => setActive(f)}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
+
+          <div className="search-chips-label">Try a query</div>
+          <div className="search-chips">
+            {chips.map((c) => (
+              <button key={c} className="pill" onClick={() => setQ(c)}>
+                <span style={{ color: 'var(--text-3)' }}>→</span>
+                {c}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeaturedSignals() {
+  return (
+    <section id="trends">
+      <div className="shell">
+        <div className="section-head">
+          <div className="head-meta">
+            <span className="eyebrow">03 · Featured Signals</span>
+            <h2 className="section-title">
+              High-signal <em>directions</em> right now.
+            </h2>
+            <p className="lede">
+              Twelve curated visual directions our editors are tracking this issue, ranked by signal strength across product, music, fashion, and creator culture.
+            </p>
+          </div>
+          <div className="head-aside">
+            <span>↻ Refreshed daily</span>
+            <Link href="/trends" className="pill">
+              View all 86
+            </Link>
+          </div>
+        </div>
+
+        <div className="bento">
+          {D.featuredSignals.map((s) => (
+            <article key={s.id} className={`signal-card ${s.span}`}>
+              <div className="card-top">
+                <span className="pill accent">{s.category}</span>
+                <SignalStrength level={s.strength} />
+              </div>
+
+              <div className="signal-visual">
+                <div className={`mood ${s.moodClass}`}></div>
+              </div>
+
+              <div>
+                <div className="card-title">{s.title}</div>
+                <p className="card-desc">{s.desc}</p>
+              </div>
+
+              <div className="swatches">
+                {s.palette.map((c, i) => (
+                  <span key={i} className="swatch" style={{ background: c }}></span>
+                ))}
+              </div>
+
+              <div className="card-foot">
+                <span className="meta">{s.useCase}</span>
+                <Link href={`/aesthetics/${s.id}`} className="open-link">
+                  Open Atlas Entry <span className="arr">→</span>
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TasteIndex() {
+  const [activeId, setActiveId] = useState('premium-dark');
+  const active = D.tasteProfiles.find((p) => p.id === activeId) || D.tasteProfiles[0];
+
+  return (
+    <section id="taste">
+      <div className="shell">
+        <div className="section-head">
+          <div className="head-meta">
+            <span className="eyebrow">04 · Taste Index</span>
+            <h2 className="section-title">
+              Map your <em>taste</em>.
+            </h2>
+            <p className="lede">
+              A multi-axis matrix for placing visual directions — minimal to maximal, classic to experimental, corporate to cultural. Click a point to map its full creative profile.
+            </p>
+          </div>
+          <div className="head-aside">
+            <span>Axis: Minimal ↔ Maximal · Classic ↔ Experimental</span>
+          </div>
+        </div>
+
+        <div className="taste-grid">
+          <div className="taste-matrix">
+            <div className="center-line-h"></div>
+            <div className="center-line-v"></div>
+            <span className="axis-x" style={{ left: 0, paddingLeft: 32 }}>
+              ← Minimal
+            </span>
+            <span
+              className="axis-x"
+              style={{ right: 0, paddingRight: 32, justifyContent: 'flex-end' }}
+            >
+              Maximal →
+            </span>
+            <span className="axis-y">↑ Classic / Experimental ↓</span>
+
+            {D.tasteProfiles.map((p) => (
+              <button
+                key={p.id}
+                className={`taste-point ${p.id === activeId ? 'active' : ''}`}
+                style={{ left: `${p.x}%`, top: `${p.y}%` }}
+                onClick={() => setActiveId(p.id)}
+                aria-label={p.name}
+              >
+                {p.id === activeId && <span className="lbl">{p.name}</span>}
+              </button>
+            ))}
+          </div>
+
+          <div className="taste-detail">
+            <div className="td-head">
+              <div>
+                <span className="eyebrow" style={{ marginBottom: 6, display: 'block' }}>
+                  Taste Profile
+                </span>
+                <h3>{active.name}</h3>
+              </div>
+              <Link href="/taste" className="btn btn-ghost">
+                Open Profile<span className="btn-icon"></span>
+              </Link>
+            </div>
+
+            <div>
+              <div className="td-row">
+                <span className="k">Personality</span>
+                <span className="v muted">{active.personality}</span>
+              </div>
+              <div className="td-row">
+                <span className="k">Industries</span>
+                <span className="v muted">{active.industries}</span>
+              </div>
+              <div className="td-row">
+                <span className="k">Typography</span>
+                <span className="v muted">{active.type}</span>
+              </div>
+              <div className="td-row">
+                <span className="k">Photography</span>
+                <span className="v muted">{active.photo}</span>
+              </div>
+              <div className="td-row">
+                <span className="k">UI Style</span>
+                <span className="v muted">{active.ui}</span>
+              </div>
+            </div>
+
+            <div>
+              <div className="td-row">
+                <span className="k">Palette</span>
+                <span className="v">
+                  <div className="swatches">
+                    {active.palette.map((c, i) => (
+                      <span key={i} className="swatch" style={{ background: c }}></span>
+                    ))}
+                  </div>
+                </span>
+              </div>
+              <div className="td-row" style={{ alignItems: 'start' }}>
+                <span className="k">Prompt</span>
+                <span
+                  className="v muted"
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 12.5,
+                    lineHeight: 1.55,
+                  }}
+                >
+                  {active.prompt}
+                </span>
+              </div>
+              <div className="td-row" style={{ borderBottom: 'none' }}>
+                <span className="k">Related</span>
+                <span className="v muted">
+                  {D.tasteProfiles
+                    .filter((p) => p.id !== active.id)
+                    .slice(0, 3)
+                    .map((p) => p.name)
+                    .join(' · ')}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AestheticLibrary() {
+  return (
+    <section id="aesthetics">
+      <div className="shell">
+        <div className="section-head">
+          <div className="head-meta">
+            <span className="eyebrow">05 · Aesthetic Library</span>
+            <h2 className="section-title">
+              A <em>catalog</em> of aesthetics.
+            </h2>
+            <p className="lede">
+              Browse twelve of the eighty-six aesthetics currently mapped in the atlas. Each entry includes visual traits, palette, typography direction, photography reference, UI treatment, and AI prompt pack.
+            </p>
+          </div>
+          <div className="head-aside">
+            <Link href="/aesthetics" className="pill">
+              Sort · Newest
+            </Link>
+            <Link href="/aesthetics" className="pill">
+              View all
+            </Link>
+          </div>
+        </div>
+
+        <div className="aesthetic-grid">
+          {D.aesthetics.map((a) => (
+            <article key={a.name} className="ae-card">
+              <div className="ae-visual">
+                <div className={`mood ${a.mood}`}></div>
+              </div>
+              <div className="ae-body">
+                <div className="ae-title">{a.name}</div>
+                <div className="ae-meta">
+                  <span style={{ color: 'var(--text-2)' }}>{a.traits}</span>
+                </div>
+                <div className="swatches">
+                  {a.palette.map((c, i) => (
+                    <span key={i} className="swatch" style={{ background: c }}></span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PhotographySection() {
+  return (
+    <section id="photography">
+      <div className="shell">
+        <div className="section-head">
+          <div className="head-meta">
+            <span className="eyebrow">06 · Photography Atlas</span>
+            <h2 className="section-title">
+              Photography <em>styles</em>.
+            </h2>
+            <p className="lede">
+              Curated photography directions for brand, editorial, and campaign work — with lighting, lens, composition, color grading, and example prompts for each.
+            </p>
+          </div>
+          <div className="head-aside">
+            <span>312 studies indexed</span>
+            <Link href="/photography" className="pill">
+              View all
+            </Link>
+          </div>
+        </div>
+
+        <div className="photo-grid">
+          {D.photoStyles.map((p) => (
+            <article key={p.name} className="photo-card">
+              <div className="photo-visual">
+                <span className="photo-frame-num">FRAME · {p.num}</span>
+                <div className={`mood ${p.visual}`}></div>
+              </div>
+              <div className="photo-overlay">
+                <div className="ph-title">{p.name}</div>
+                <div className="ph-meta">
+                  {p.meta.map((m, i) => (
+                    <React.Fragment key={i}>
+                      <span>{m}</span>
+                      {i < p.meta.length - 1 && <span className="dot-sep">/</span>}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ViralSignals() {
+  return (
+    <section id="viral-signals">
+      <div className="shell">
+        <div className="section-head">
+          <div className="head-meta">
+            <span className="eyebrow">07 · Viral Signals</span>
+            <h2 className="section-title">
+              Read what's <em>rising</em>.
+            </h2>
+            <p className="lede">
+              A content-intelligence layer over the atlas. Each signal tracks why a pattern is rising, where it lives, and how to translate it into product or campaign work.
+            </p>
+          </div>
+          <div className="head-aside">
+            <span>↻ Updated weekly</span>
+          </div>
+        </div>
+
+        <div className="viral-grid">
+          {D.viralSignals.map((v) => (
+            <article key={v.num} className="viral-card">
+              <div className="viral-top">
+                <span className="viral-num">{v.num}</span>
+                <SignalStrength level={v.strength} />
+              </div>
+              <div className="viral-title">{v.title}</div>
+              <p className="viral-why">{v.why}</p>
+              <div className="viral-tags">
+                {v.tags.map((t) => (
+                  <span key={t} className="pill">
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <div className="viral-foot">
+                <span>{v.platform}</span>
+                <Link href="/viral-signals" className="turn">
+                  Turn into campaign →
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function parseBoldText(raw: string) {
+  const parts = raw.split(/(<strong>[^<]*<\/strong>)/g);
+  return parts.map((part, i) => {
+    const m = part.match(/^<strong>([^<]*)<\/strong>$/);
+    return m ? <strong key={i}>{m[1]}</strong> : part;
+  });
+}
+
+function Prompts() {
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const copy = (idx: number, body: string) => {
+    const text = body.replace(/<[^>]+>/g, '');
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+    }
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 1400);
+  };
+  return (
+    <section id="prompts">
+      <div className="shell">
+        <div className="section-head">
+          <div className="head-meta">
+            <span className="eyebrow">08 · Prompt Library</span>
+            <h2 className="section-title">
+              A <em>prompt</em> pack for every direction.
+            </h2>
+            <p className="lede">
+              920+ tuned prompts for image generation, UI, posters, album covers, campaigns, and brand systems. Tagged by tool, output, and atlas entry.
+            </p>
+          </div>
+          <div className="head-aside">
+            <Link href="/prompts" className="pill">
+              Copy all
+            </Link>
+            <Link href="/prompts" className="pill">
+              Filter · Tool
+            </Link>
+          </div>
+        </div>
+
+        <div className="prompt-grid">
+          {D.prompts.map((p, i) => (
+            <article key={p.title} className="prompt-card">
+              <div className="prompt-head">
+                <div>
+                  <div className="prompt-title">{p.title}</div>
+                </div>
+                <span className="prompt-tool">{p.tool}</span>
+              </div>
+
+              <div className="prompt-body">
+                <button
+                  className={`prompt-copy ${copiedIdx === i ? 'copied' : ''}`}
+                  onClick={() => copy(i, p.body)}
+                >
+                  {copiedIdx === i ? 'Copied ✓' : 'Copy'}
+                </button>
+                <span>{parseBoldText(p.body)}</span>
+              </div>
+
+              <div className="prompt-foot">
+                <div className="prompt-tags">
+                  {p.tags.map((t) => (
+                    <span key={t} className="pill">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <Link href="/prompts" className="open-link" style={{ color: 'var(--green)' }}>
+                  Open →
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Assets() {
+  return (
+    <section id="assets">
+      <div className="shell">
+        <div className="section-head">
+          <div className="head-meta">
+            <span className="eyebrow">09 · Asset Library</span>
+            <h2 className="section-title">
+              Download &amp; <em>deploy</em>.
+            </h2>
+            <p className="lede">
+              Editable templates, color packs, UI kits, shot lists, and concept boards — designed to drop into a project the same day you find them.
+            </p>
+          </div>
+          <div className="head-aside">
+            <Link href="/assets" className="pill">
+              Format · All
+            </Link>
+            <Link href="/assets" className="pill">
+              View all
+            </Link>
+          </div>
+        </div>
+
+        <div className="asset-grid">
+          {D.assets.map((a) => (
+            <article key={a.title} className="asset-card">
+              <div className="asset-visual">
+                <span className="asset-format">{a.format}</span>
+                <div className={`mood ${a.visual}`}></div>
+              </div>
+              <div className="asset-body">
+                <div className="asset-title">{a.title}</div>
+                <div className="asset-cat">{a.cat}</div>
+                <div className="asset-foot">
+                  <Link href="/assets" className="dl">
+                    ↓ Download
+                  </Link>
+                  <span className="size">{a.size}</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Journal() {
+  const [feature, ...rest] = D.journal;
+  return (
+    <section id="journal">
+      <div className="shell">
+        <div className="section-head">
+          <div className="head-meta">
+            <span className="eyebrow">10 · The Journal</span>
+            <h2 className="section-title">
+              Field notes on <em>visual culture</em>.
+            </h2>
+            <p className="lede">
+              Essays, playbooks, and field notes for designers, founders, and creative directors. SEO &amp; GEO-tuned for Google AI Overview, Perplexity, and Pinterest discovery.
+            </p>
+          </div>
+          <div className="head-aside">
+            <Link href="/journal" className="pill">
+              All essays
+            </Link>
+            <Link href="/journal" className="pill">
+              RSS
+            </Link>
+          </div>
+        </div>
+
+        <div className="journal-grid">
+          <article className="journal-card jr-feature">
+            <div className="jr-visual">
+              <div className={`mood ${feature.visual}`}></div>
+            </div>
+            <div className="jr-body">
+              <div className="jr-meta">
+                {feature.meta.map((m, i) => (
+                  <React.Fragment key={i}>
+                    <span>{m}</span>
+                    {i < feature.meta.length - 1 && <span style={{ color: 'var(--text-4)' }}>·</span>}
+                  </React.Fragment>
+                ))}
+              </div>
+              <h3 className="jr-title">{feature.title}</h3>
+              <p className="jr-excerpt">{feature.excerpt}</p>
+              <div className="jr-foot">
+                <span>By the Atlas Editors</span>
+                <Link href="/journal" className="read">
+                  Read essay →
+                </Link>
+              </div>
+            </div>
+          </article>
+
+          {rest.map((j) => (
+            <article key={j.title} className="journal-card compact">
+              <div className="jr-visual">
+                <div className={`mood ${j.visual}`}></div>
+              </div>
+              <div className="jr-body">
+                <div className="jr-meta">
+                  {j.meta.map((m, i) => (
+                    <React.Fragment key={i}>
+                      <span>{m}</span>
+                      {i < j.meta.length - 1 && <span style={{ color: 'var(--text-4)' }}>·</span>}
+                    </React.Fragment>
+                  ))}
+                </div>
+                <h3 className="jr-title">{j.title}</h3>
+                <p className="jr-excerpt">{j.excerpt}</p>
+                <div className="jr-foot">
+                  <span>Atlas Editors</span>
+                  <Link href="/journal" className="read">
+                    Read →
+                  </Link>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Submit() {
+  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    category: 'Aesthetic',
+    title: '',
+    desc: '',
+    source: '',
+    tags: '',
+  });
+  const upd = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+    setForm({ ...form, [k]: e.target.value });
+  const handle = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3500);
+  };
+
+  return (
+    <section id="submit">
+      <div className="shell">
+        <div className="submit-wrap">
+          <div className="submit-info">
+            <span className="eyebrow" style={{ marginBottom: 18, display: 'block' }}>
+              11 · Submit to the Atlas
+            </span>
+            <h2 className="section-title">
+              Spotted a <em>signal</em>?
+            </h2>
+            <p>
+              Submit a trend, aesthetic, photography style, prompt, viral pattern, or asset idea. Editors review every entry. Accepted submissions get a public credit and a permanent Atlas page.
+            </p>
+            <ul className="info-list">
+              <li>
+                <span className="ix">01</span>
+                <span className="it">Trend &amp; aesthetic submissions</span>
+              </li>
+              <li>
+                <span className="ix">02</span>
+                <span className="it">Photography &amp; visual references</span>
+              </li>
+              <li>
+                <span className="ix">03</span>
+                <span className="it">Brand concepts &amp; design systems</span>
+              </li>
+              <li>
+                <span className="ix">04</span>
+                <span className="it">Viral content patterns</span>
+              </li>
+              <li>
+                <span className="ix">05</span>
+                <span className="it">Prompts &amp; asset packs</span>
+              </li>
+            </ul>
+          </div>
+
+          <form className="submit-form" onSubmit={handle}>
+            <div className="form-row">
+              <div className="form-field">
+                <label htmlFor="sf-name">Name</label>
+                <input
+                  id="sf-name"
+                  value={form.name}
+                  onChange={upd('name')}
+                  placeholder="Your name"
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="sf-email">Email</label>
+                <input
+                  id="sf-email"
+                  type="email"
+                  value={form.email}
+                  onChange={upd('email')}
+                  placeholder="you@studio.com"
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="sf-cat">Category</label>
+                <select id="sf-cat" value={form.category} onChange={upd('category')}>
+                  <option>Aesthetic</option>
+                  <option>Trend</option>
+                  <option>Photography Style</option>
+                  <option>Brand Concept</option>
+                  <option>Viral Pattern</option>
+                  <option>Prompt</option>
+                  <option>Asset</option>
+                </select>
+              </div>
+              <div className="form-field">
+                <label htmlFor="sf-title">Title</label>
+                <input
+                  id="sf-title"
+                  value={form.title}
+                  onChange={upd('title')}
+                  placeholder="e.g. Notes App Manifesto"
+                />
+              </div>
+              <div className="form-field full">
+                <label htmlFor="sf-desc">Description</label>
+                <textarea
+                  id="sf-desc"
+                  value={form.desc}
+                  onChange={upd('desc')}
+                  placeholder="Why is this rising? Where have you seen it? Who is it for?"
+                ></textarea>
+              </div>
+              <div className="form-field">
+                <label htmlFor="sf-src">Source / reference</label>
+                <input
+                  id="sf-src"
+                  value={form.source}
+                  onChange={upd('source')}
+                  placeholder="URL or @handle"
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="sf-tags">Tags</label>
+                <input
+                  id="sf-tags"
+                  value={form.tags}
+                  onChange={upd('tags')}
+                  placeholder="comma, separated, tags"
+                />
+              </div>
+              <div className="form-field full">
+                <label>Upload reference</label>
+                <div className="upload">Drop image / reference · or click to browse</div>
+              </div>
+            </div>
+
+            <div className="form-submit">
+              <span className="agreement">By submitting you agree to the Atlas editorial guidelines.</span>
+              <button type="submit" className="btn btn-primary">
+                {submitted ? 'Received ✓' : 'Submit signal'}
+                <span className="btn-icon"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <Ticker />
+      <SearchSection />
+      <FeaturedSignals />
+      <TasteIndex />
+      <AestheticLibrary />
+      <PhotographySection />
+      <ViralSignals />
+      <Prompts />
+      <Assets />
+      <Journal />
+      <Submit />
+    </>
   );
 }
