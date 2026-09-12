@@ -6,12 +6,12 @@ let html = fs.readFileSync(filePath, 'utf8');
 
 // Replace metadata & title
 html = html.replace(/<!-- Made in Framer · framer\.com ✨ -->/g, '<!-- Navrine Atlas — Visual Culture Catalog -->');
-html = html.replace(/<title>My Framer Site<\/title>/g, '<title>Navrine Atlas — Trend, Aesthetic, Design Concept &amp; Visual Culture Catalog<\/title>');
+html = html.replace(/<title>ATLAS<\/title>/g, '<title>Navrine Atlas — Trend, Aesthetic, Design Concept &amp; Visual Culture Catalog<\/title>');
 html = html.replace(/<meta name="generator" content="Framer [^"]*">/g, '<meta name="generator" content="Navrine Studio">');
 html = html.replace(/<meta name="description" content="Made with Framer">/g, '<meta name="description" content="The visual culture catalog for trends, aesthetics, design concepts, and creative direction. Built by Navrine Studio for designers, founders, and cultural builders.">');
-html = html.replace(/<meta property="og:title" content="My Framer Site">/g, '<meta property="og:title" content="Navrine Atlas — Visual Culture Catalog">');
+html = html.replace(/<meta property="og:title" content="ATLAS Site">/g, '<meta property="og:title" content="Navrine Atlas — Visual Culture Catalog">');
 html = html.replace(/<meta property="og:description" content="Made with Framer">/g, '<meta property="og:description" content="The visual culture catalog for trends, aesthetics, design concepts, and creative direction.">');
-html = html.replace(/<meta name="twitter:title" content="My Framer Site">/g, '<meta name="twitter:title" content="Navrine Atlas — Visual Culture Catalog">');
+html = html.replace(/<meta name="twitter:title" content="ATLAS Site">/g, '<meta name="twitter:title" content="Navrine Atlas — Visual Culture Catalog">');
 html = html.replace(/<meta name="twitter:description" content="Made with Framer">/g, '<meta name="twitter:description" content="Read the signals. Build the taste. Design the future.">');
 html = html.replace(/https:\/\/navrineatlas\.framer\.website\//g, 'https://navrine-atlas.vercel.app/');
 
@@ -39,6 +39,9 @@ if (!html.includes('#__framer-badge-container')) {
 } else {
   html = html.replace('</head>', hideCss);
 }
+
+// Remove FramerExporter badge script completely
+html = html.replace(/<script id="framerexporter-badge-bootstrap">[\s\S]*?<\/script>/gi, '');
 
 fs.writeFileSync(filePath, html, 'utf8');
 console.log('Successfully cleaned production/index.html!');
