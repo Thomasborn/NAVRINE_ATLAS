@@ -24,15 +24,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://atlas.navrine.space'),
-  title: 'Navrine Atlas — Trend, Aesthetic, Design Concept & Visual Culture Catalog',
+  metadataBase: new URL('https://atlas.navrine.com'),
+  title: 'atlas',
   description:
     'Navrine Atlas is a visual culture catalog for discovering trends, aesthetics, design concepts, creative taste, photography styles, viral signals, color palettes, AI prompts, assets, and brand inspiration.',
   openGraph: {
     title: 'Navrine Atlas',
     description:
       'The visual culture catalog for trends, aesthetics, design concepts, and creative direction.',
-    url: 'https://atlas.navrine.space',
+    url: 'https://atlas.navrine.com',
     siteName: 'Navrine Atlas',
     images: [
       {

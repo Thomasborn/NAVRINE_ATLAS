@@ -33,6 +33,12 @@ export default function CatalogLayout({ title, description, entries }: CatalogLa
                   <span className="pill accent">{s.category}</span>
                 </div>
 
+                {s.moodClass && (
+                  <div className="signal-visual">
+                    <div className={`mood ${s.moodClass}`}></div>
+                  </div>
+                )}
+
                 <div>
                   <div className="card-title">{s.title}</div>
                   <p className="card-desc">{s.desc}</p>

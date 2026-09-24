@@ -122,6 +122,11 @@ export const ATLAS_DATA = {
     { name: "Urban Editorial", traits: "Night sodium amber, motion blur", palette: ["#FFB84D","#FF4FD8","#050505"], mood: "mood-urban" },
     { name: "Indie Sleaze", traits: "Direct flash, party blur", palette: ["#050505","#FF4FD8","#F3EAD7"], mood: "mood-street" },
     { name: "Local Heritage Future", traits: "Batik motifs, future syntax", palette: ["#3A1F0A","#6B3A1A","#F3EAD7","#B8804A"], mood: "mood-local" },
+    { name: "Receipt Paper", traits: "Thermal print, monospaced typography, grainy monochrome", palette: ["#F0F0F0","#333333","#000000"], mood: "mood-receipt" },
+    { name: "Datamosh", traits: "Video compression artifacts, pixel smearing, broken keyframes", palette: ["#4D8DFF","#FF4FD8","#B8FF4D"], mood: "mood-datamosh" },
+    { name: "Blob Tracking", traits: "Liquid motion, abstract geometry, fluid simulation", palette: ["#FF4FD8","#FFB84D","#4D8DFF"], mood: "mood-blob" },
+    { name: "Night Vision", traits: "Green phosphor glow, grainy texture, low light infrared", palette: ["#B8FF4D","#0A2A0A","#000000"], mood: "mood-night-vision" },
+    { name: "CRT", traits: "Cathode ray tube, scanlines, RGB phosphor dots, chromatic aberration", palette: ["#4D8DFF","#FF4FD8","#B8FF4D"], mood: "mood-crt" },
   ],
 
   photoStyles: [

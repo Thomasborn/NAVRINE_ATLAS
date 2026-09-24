@@ -12,9 +12,8 @@
     <meta name="description" content="The visual culture catalog for trends, aesthetics, design concepts, and creative direction. Built by Navrine Studio for designers, founders, and cultural builders.">
     <meta name="framer-search-index" content="assets/searchIndex.json">
     <meta name="framer-search-index-fallback" content="assets/searchIndex-fallback.json">
-    <link href="images/default-favicon-light.v1.png" rel="icon" media="(prefers-color-scheme: light)">
-    <link href="images/default-favicon-dark.v1.png" rel="icon" media="(prefers-color-scheme: dark)">
-    <link rel="apple-touch-icon" href="images/default-touch-icon.v3.png">
+
+
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Navrine Atlas — Visual Culture Catalog">
@@ -1456,4 +1455,18 @@ body > a[href*="framer.com/market"] {
 
 
 
-</body></html>
+
+<script>
+(function() {
+  function fixMeta() {
+    document.title = 'atlas';
+    const icons = document.querySelectorAll("link[rel*='icon']");
+    icons.forEach(i => i.remove());
+  }
+  fixMeta();
+  const observer = new MutationObserver(fixMeta);
+  observer.observe(document.head, { childList: true, subtree: true, characterData: true });
+})();
+</script>
+</body>
+</html>
