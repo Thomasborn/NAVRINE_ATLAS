@@ -1206,11 +1206,11 @@ section {
     #1a0a2b;
 }
 
-.mood-receipt { background-image: url('/images/receipt_paper.jpg'); background-size: cover; background-position: center; }
-.mood-datamosh { background-image: url('/images/datamosh.jpg'); background-size: cover; background-position: center; }
-.mood-blob { background-image: url('/images/blob_tracking.jpg'); background-size: cover; background-position: center; }
-.mood-night-vision { background-image: url('/images/night_vision.jpg'); background-size: cover; background-position: center; }
-.mood-crt { background-image: url('/images/crt.jpg'); background-size: cover; background-position: center; }
+.mood-receipt { background-image: url('/images/receipt_paper.webp'); background-size: cover; background-position: center; }
+.mood-datamosh { background-image: url('/images/datamosh.webp'); background-size: cover; background-position: center; }
+.mood-blob { background-image: url('/images/blob_tracking.webp'); background-size: cover; background-position: center; }
+.mood-night-vision { background-image: url('/images/night_vision.webp'); background-size: cover; background-position: center; }
+.mood-crt { background-image: url('/images/crt.webp'); background-size: cover; background-position: center; }
 
 
 /* ---------- Taste matrix ---------- */
