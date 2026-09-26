@@ -47,7 +47,7 @@ export default function TasteIndexPage() {
                 <span className="eyebrow" style={{marginBottom:6, display:"block"}}>Taste Profile</span>
                 <h3>{active.name}</h3>
               </div>
-              <a href={`/taste/${active.id}`} className="btn btn-ghost">Open Profile<span className="btn-icon"></span></a>
+              <a href={`/search?q=${encodeURIComponent(active.name)}`} className="btn btn-ghost">Open Profile<span className="btn-icon"></span></a>
             </div>
 
             <div>

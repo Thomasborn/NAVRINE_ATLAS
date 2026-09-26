@@ -1,10 +1,17 @@
 'use client';
-import { useState } from 'react';
-import { sampleAtlasEntries } from '@/data/seed';
+import { Suspense, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { ATLAS_DATA as D } from '@/data/data';
 import Link from 'next/link';
 
+// useSearchParams needs a Suspense boundary to keep the page prerenderable
 export default function SearchPage() {
-  const [q, setQ] = useState("");
+  return <Suspense><Search /></Suspense>;
+}
+
+function Search() {
+  // Chips on the homepage link here as /search?q=…
+  const [q, setQ] = useState(useSearchParams().get("q") ?? "");
   const [active, setActive] = useState("Category");
 
   const filters = ["Category","Region","Industry","Mood","Color","Era","Platform","Use Case"];
@@ -14,7 +21,13 @@ export default function SearchPage() {
     "Cool blue minimal","Notes app chic","Chrome future"
   ];
   
-  const entries = sampleAtlasEntries;
+  const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+  const matches = D.featuredSignals.filter(s => {
+    const hay = [s.title, s.desc, s.category, s.useCase, s.tag].join(" ").toLowerCase();
+    return words.some(w => hay.includes(w));
+  });
+  // A query with no exact hit still shows the catalog rather than an empty page
+  const entries = matches.length ? matches : D.featuredSignals;
 
   return (
     <section id="search">
@@ -64,7 +77,7 @@ export default function SearchPage() {
         <div style={{ marginTop: '4rem' }}>
           <div className="bento">
             {entries.map(s => {
-              const isLightCard = ["vintage-pop-campaign", "cool-blue-minimal-saas", "chrome-future-poster"].includes(s.slug);
+              const isLightCard = ["vintage-pop-campaign", "cool-blue-minimal-saas", "chrome-future-poster"].includes(s.id);
               const lightClass = isLightCard ? "card-light" : "";
 
               return (
@@ -75,16 +88,16 @@ export default function SearchPage() {
 
                   <div>
                     <div className="card-title">{s.title}</div>
-                    <p className="card-desc">{s.subtitle || s.description.substring(0, 100) + '...'}</p>
+                    <p className="card-desc">{s.desc}</p>
                   </div>
 
                   <div className="swatches">
-                    {s.colorPalette.map((c,i) => <span key={i} className="swatch" style={{background:c}}></span>)}
+                    {s.palette.map((c,i) => <span key={i} className="swatch" style={{background:c}}></span>)}
                   </div>
 
                   <div className="card-foot">
-                    <span className="meta">{s.industries?.[0] || 'Various'}</span>
-                    <Link href={`/${s.category.toLowerCase().replace(' ', '-')}/${s.slug}`} className="open-link">
+                    <span className="meta">{s.useCase}</span>
+                    <Link href={`/aesthetics/${s.id}`} className="open-link">
                       Open Atlas Entry <span className="arr">→</span>
                     </Link>
                   </div>

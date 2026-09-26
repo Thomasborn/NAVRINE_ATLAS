@@ -28,7 +28,7 @@ export default async function AssetDetail({ params }: Props) {
             <p className="lede">Format: {entry.format} · Size: {entry.size}</p>
           </div>
           <div className="head-aside">
-            <a href="#" className="btn btn-primary">Download Asset<span className="btn-icon"></span></a>
+            <a href={`mailto:hello@navrine.space?subject=${encodeURIComponent(`Asset request: ${entry.title}`)}`} className="btn btn-primary">Request Asset<span className="btn-icon"></span></a>
           </div>
         </div>
 

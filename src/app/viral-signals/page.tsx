@@ -41,7 +41,7 @@ export default function ViralSignalsPage() {
               </div>
               <div className="viral-foot">
                 <span>{v.platform}</span>
-                <a href="#" className="turn">Turn into campaign →</a>
+                <a href="/studio" className="turn">Turn into campaign →</a>
               </div>
             </article>
           ))}
