@@ -49,6 +49,9 @@
 
   // Standalone CTAs elsewhere on the page (texts are unique on the page)
   const CTA = {
+    issue014may2026: "/journal",
+    visualculturecatalog: "/visual-culture",
+    iden: "/about",
     exploreatlas: "/aesthetics",
     consultationwithnavrinestudio: "/studio",
     viewall86: "/aesthetics",
