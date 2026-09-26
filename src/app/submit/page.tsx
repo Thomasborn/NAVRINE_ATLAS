@@ -3,10 +3,16 @@ import { useState } from 'react';
 
 export default function SubmitPage() {
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({ name:"", email:"", category:"Aesthetic", title:"", desc:"", source:"", tags:"" });
+  const [form, setForm] = useState({ name:"", email:"", category:"Aesthetic", title:"", desc:"", source:"", tags:"", images:"" });
   const upd = (k: string) => (e: any) => setForm({ ...form, [k]: e.target.value });
   const handle = (e: any) => {
     e.preventDefault();
+    // No submissions backend yet — hand the entry to the editors' inbox
+    const body = [
+      `Name: ${form.name}`, `Email: ${form.email}`, `Category: ${form.category}`, `Title: ${form.title}`,
+      `Source: ${form.source}`, `Tags: ${form.tags}`, `References: ${form.images}`, "", form.desc,
+    ].join("\n");
+    window.location.href = `mailto:hello@navrine.space?subject=${encodeURIComponent(`Atlas submission: ${form.title || "New signal"}`)}&body=${encodeURIComponent(body)}`;
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3500);
   };
@@ -67,8 +73,8 @@ export default function SubmitPage() {
                 <input id="sf-tags" value={form.tags} onChange={upd("tags")} placeholder="comma, separated, tags" />
               </div>
               <div className="form-field full">
-                <label>Upload reference</label>
-                <div className="upload">Drop image / reference · or click to browse</div>
+                <label htmlFor="sf-images">Reference images</label>
+                <input id="sf-images" value={form.images} onChange={upd("images")} placeholder="Image links — or attach files in the email that opens" />
               </div>
             </div>
 

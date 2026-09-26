@@ -1,4 +1,5 @@
 import { ATLAS_DATA as D } from '@/data/data';
+import CopyButton from '@/components/atlas/CopyButton';
 
 export default function ColorPalettesPage() {
   const palettes = D.tasteProfiles.map((p: any) => ({
@@ -21,7 +22,7 @@ export default function ColorPalettesPage() {
             <p className="lede">The precise color values driving modern design concepts, extracted from our taste index and aesthetic library.</p>
           </div>
           <div className="head-aside">
-            <span className="pill">Copy hex codes</span>
+            <CopyButton label="Copy hex codes" text={palettes.map(p => `${p.name}: ${p.colors.join(', ')}`).join('\n')} />
           </div>
         </div>
 
@@ -47,6 +48,7 @@ export default function ColorPalettesPage() {
 
               <div className="card-foot" style={{ marginTop: '1.5rem' }}>
                 <span className="meta" style={{ fontSize: '0.875rem' }}>{p.use.substring(0, 40)}...</span>
+                <CopyButton label="Copy" text={p.colors.join(', ')} />
               </div>
             </article>
           ))}

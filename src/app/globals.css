@@ -481,10 +481,21 @@ section {
   z-index: 200;
 }
 
-.nav-group:hover .nav-dropdown {
+.nav-group:hover .nav-dropdown,
+.nav-group:focus-within .nav-dropdown {
   opacity: 1;
   pointer-events: auto;
   transform: translateX(-50%) translateY(0);
+}
+
+button.nav-group-label {
+  background: transparent;
+  border: 0;
+}
+
+.nav-group-label.active,
+.nav-direct.active {
+  color: var(--text);
 }
 
 /* Expand hit area to prevent losing hover when moving mouse down */
@@ -2279,6 +2290,9 @@ section {
 /* Mobile menu button */
 .mobile-menu-btn {
   display: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
   width: 32px;
   height: 32px;
   position: relative;
@@ -2349,7 +2363,7 @@ section {
     min-width: 100%;
     display: none;
   }
-  .nav-group:hover .nav-dropdown, .nav-group:active .nav-dropdown {
+  .nav-group:hover .nav-dropdown, .nav-group:active .nav-dropdown, .nav-group.open .nav-dropdown {
     display: block;
   }
 

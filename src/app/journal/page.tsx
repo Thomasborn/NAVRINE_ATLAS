@@ -13,8 +13,8 @@ export default function JournalPage() {
             <p className="lede">Essays, playbooks, and field notes for designers, founders, and creative directors. SEO &amp; GEO-tuned for Google AI Overview, Perplexity, and Pinterest discovery.</p>
           </div>
           <div className="head-aside">
-            <span className="pill">All essays</span>
-            <span className="pill">RSS</span>
+            <Link href="/journal" className="pill">All essays</Link>
+            <a href="/rss.xml" className="pill">RSS</a>
           </div>
         </div>
 

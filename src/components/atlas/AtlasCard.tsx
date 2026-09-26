@@ -8,7 +8,7 @@ interface AtlasCardProps {
 
 export default function AtlasCard({ entry }: AtlasCardProps) {
   return (
-    <Link href={`/${entry.category.toLowerCase().replace(' ', '-')}/${entry.slug}`} className="glow-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <Link href={`/aesthetics/${entry.slug}`} className="glow-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <div style={{
         height: '200px',
         backgroundColor: 'var(--surface-elevated)',

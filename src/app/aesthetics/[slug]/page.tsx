@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ATLAS_DATA as D } from '@/data/data';
+import { findAesthetic } from '@/data/aesthetics';
 import { Metadata } from 'next';
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const entry = D.featuredSignals.find((e: any) => e.id === slug);
+  const entry = findAesthetic(slug);
   if (!entry) return {};
   return {
     title: `${entry.title} — Navrine Atlas`,
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function AestheticDetail({ params }: Props) {
   const { slug } = await params;
-  const entry = D.featuredSignals.find((e: any) => e.id === slug);
+  const entry = findAesthetic(slug);
   
   if (!entry) {
     notFound();

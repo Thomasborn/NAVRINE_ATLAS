@@ -1,3 +1,5 @@
+import PrintButton from '@/components/atlas/PrintButton';
+
 export default function MoodboardPage() {
   return (
     <section>
@@ -9,7 +11,7 @@ export default function MoodboardPage() {
             <p className="lede">Your personal collection of aesthetic references, color palettes, and prompts saved from the Atlas.</p>
           </div>
           <div className="head-aside">
-            <span className="pill">Export PDF</span>
+            <PrintButton label="Export PDF" />
           </div>
         </div>
 

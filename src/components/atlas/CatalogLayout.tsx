@@ -1,4 +1,5 @@
-import { AtlasEntry } from '@/data/seed';
+'use client';
+import { useState } from 'react';
 import Link from 'next/link';
 
 interface CatalogLayoutProps {
@@ -8,6 +9,12 @@ interface CatalogLayoutProps {
 }
 
 export default function CatalogLayout({ title, description, entries }: CatalogLayoutProps) {
+  const [sort, setSort] = useState<'Newest' | 'A–Z' | 'Signal'>('Newest');
+  const nextSort = () => setSort(sort === 'Newest' ? 'A–Z' : sort === 'A–Z' ? 'Signal' : 'Newest');
+  const sorted = sort === 'A–Z' ? [...entries].sort((a, b) => a.title.localeCompare(b.title))
+    : sort === 'Signal' ? [...entries].sort((a, b) => (b.strength ?? 0) - (a.strength ?? 0))
+    : entries;
+
   return (
     <section>
       <div className="shell" style={{ marginTop: '2rem' }}>
@@ -18,12 +25,12 @@ export default function CatalogLayout({ title, description, entries }: CatalogLa
             <p className="lede">{description}</p>
           </div>
           <div className="head-aside">
-            <span className="pill">Sort · Newest</span>
+            <button type="button" className="pill" onClick={nextSort}>Sort · {sort}</button>
           </div>
         </div>
 
         <div className="bento">
-          {entries.map(s => {
+          {sorted.map(s => {
             const isLightCard = ["vintage-pop-campaign", "cool-blue-minimal-saas", "chrome-future-poster"].includes(s.id);
             const lightClass = isLightCard ? "card-light" : "";
 

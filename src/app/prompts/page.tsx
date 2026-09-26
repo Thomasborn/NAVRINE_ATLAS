@@ -4,6 +4,17 @@ import { ATLAS_DATA as D } from '@/data/data';
 
 export default function PromptsPage() {
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const [allCopied, setAllCopied] = useState(false);
+  // "Filter · Tool" cycles All → each tool → All
+  const tools = [...new Set(D.prompts.map(p => p.tool))];
+  const [tool, setTool] = useState<string | null>(null);
+  const nextTool = () => setTool(tool === null ? tools[0] : tools[tools.indexOf(tool) + 1] ?? null);
+  const shown = D.prompts.filter(p => tool === null || p.tool === tool);
+  const copyAll = () => {
+    navigator.clipboard?.writeText(shown.map(p => `${p.title} (${p.tool})\n${p.body.replace(/<[^>]+>/g, "")}`).join("\n\n"));
+    setAllCopied(true);
+    setTimeout(() => setAllCopied(false), 1400);
+  };
   const copy = (idx: number, body: string) => {
     const text = body.replace(/<[^>]+>/g, "");
     navigator.clipboard?.writeText(text);
@@ -21,13 +32,13 @@ export default function PromptsPage() {
             <p className="lede">920+ tuned prompts for image generation, UI, posters, album covers, campaigns, and brand systems. Tagged by tool, output, and atlas entry.</p>
           </div>
           <div className="head-aside">
-            <button className="pill">Copy all</button>
-            <button className="pill">Filter · Tool</button>
+            <button type="button" className="pill" onClick={copyAll}>{allCopied ? "Copied ✓" : "Copy all"}</button>
+            <button type="button" className={`pill ${tool ? "active" : ""}`} onClick={nextTool}>Filter · {tool ?? "Tool"}</button>
           </div>
         </div>
 
         <div className="prompt-grid">
-          {D.prompts.map((p: any, i: number) => (
+          {shown.map((p, i) => (
             <article key={p.title} className="prompt-card">
               <div className="prompt-head">
                 <span className="prompt-tool">{p.tool}</span>
@@ -45,7 +56,7 @@ export default function PromptsPage() {
 
               <div className="prompt-foot">
                 <div className="prompt-tags">
-                  {p.tags.map((t: string) => <span key={t} className="pill">{t}</span>)}
+                  {p.tags.map(t => <span key={t} className="pill">{t}</span>)}
                 </div>
                 <a href={`/prompts/${p.title.toLowerCase().replace(/ /g, '-')}`} className="open-link" style={{color:"var(--green)"}}>Open →</a>
               </div>
